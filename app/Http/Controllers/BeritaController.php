@@ -163,6 +163,7 @@ class BeritaController extends Controller
 
     public function destroy(Berita $berita)
     {
+        // menghapus juga gambar yg ada folder storage 
         if ($berita->gambar) {
             Storage::delete($berita->gambar);
         }

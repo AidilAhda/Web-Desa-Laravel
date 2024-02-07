@@ -24,8 +24,8 @@
                     </i> <span>Berita</span>
                 </a>
             </li>
-            <li class="{{ Request::is('kategori*') ? 'active' : '' }}">
-                <a class="nav-link" href="/kategoris"><i class="fas fa-book">
+            <li class="{{ Request::is('categories*') ? 'active' : '' }}">
+                <a class="nav-link" href="/categories"><i class="fas fa-book">
                     </i> <span>Kategori</span>
                 </a>
             </li>

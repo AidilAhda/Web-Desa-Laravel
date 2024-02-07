@@ -40,7 +40,7 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('/beritas/{berita:slug}', [BeritaController::class,'show']);
     
     //KATEGORI  
-    Route::resource('/kategoris', CategoryController::class);
+    Route::resource('/categories', CategoryController::class);
     
 });
 

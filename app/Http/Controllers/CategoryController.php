@@ -14,7 +14,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $category = Category::latest()->get();
+       return view('admin.kategori',[
+        'category' => $category,
+       ]);
     }
 
     /**
@@ -24,7 +27,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.tambahKategori');
     }
 
     /**
@@ -35,7 +38,15 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        $validData = $request->validate([
+            'nama'=>'required|max:255',
+        ]);
+         if (Category::create($validData)) {
+            return redirect("/categories")->with('berhasil','Berhasil Menambahkan Kategori');            
+        }  
+        return redirect("/categories")->with('gagal','Gagal Menambahkan Kategori');            
+
     }
 
     /**
@@ -59,7 +70,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('admin.updateKategori',[
+            'category'=>$category,
+        ]);
     }
 
     /**
@@ -71,7 +84,15 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        // dd($request);
+         $rules = [
+            'nama'=>'required|max:255',
+        ];
+        $validData = $request->validate($rules);
+         if (Category::where('id',$category->id)->update($validData)) {
+            return redirect("/categories")->with('berhasil','Berhasil Mengupdate Kategori');            
+        }  
+        return redirect("/categories")->with('gagal','Gagal Mengupdate Kategori');   
     }
 
     /**
@@ -82,6 +103,10 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        if (Category::destroy($category->id)) {
+            return redirect("/categories")->with('berhasil','Berhasil Menghapus Kategori');            
+        }  
+        return redirect("/categories")->with('gagal','Gagal Menghapus Kategori');
+    
     }
 }

@@ -86,7 +86,8 @@
                     <h1>{{ $data->judul }}</h1>
                     <small>diposting {{ $data->created_at->diffForHumans() }}</small>
                     <p>Tag : <a href="/kategori/{{ $data->category->nama }}">{{ $data->category->nama }}</a></p>
-                    <img src="{{ $data->gambar }}" alt="" srcset="" class="pb-2 img-fluid">
+                    <img src="{{ asset('storage/' . $data->gambar) }}" alt="" srcset=""
+                        class="pb-2 img-fluid">
                     <p>{!! $data->isi !!}</p>
 
                 </div>

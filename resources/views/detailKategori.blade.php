@@ -63,7 +63,7 @@
             @foreach ($category->Berita as $b)
                 <div class="col-md-4">
                     <div class="card card-primary" style="width: 18rem;">
-                        <img class="card-img-top" src="{{ $b->gambar }}" alt="gambar tidak ada">
+                        <img class="card-img-top" src="{{ asset('storage/' . $b->gambar) }}" alt="gambar tidak ada">
                         <div class="card-body">
                             <h5 class="card-title">{{ $b->judul }}</h5>
                             <p class="card-text">{{ $b->excerpt }}</p>

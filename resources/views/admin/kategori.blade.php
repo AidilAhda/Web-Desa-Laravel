@@ -1,16 +1,16 @@
 {{-- @dd($kategory) --}}
 @extends('layouts.app')
 
-@section('title', 'BERITA')
+@section('title', 'KATEGORI')
 
 {{-- @dd($data) --}}
 @section('main')
     <div class="main-content">
         <section class="section">
             <div class="section-header shadow">
-                <h1>Berita</h1>
+                <h1>Kategori</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item">Berita</div>
+                    <div class="breadcrumb-item">Kategori</div>
                 </div>
             </div>
 
@@ -18,8 +18,8 @@
                 <div class="card shadow">
                     <div class="card-header">
                         <div class="buttons">
-                            <a href="beritas/create" class="btn btn-icon icon-left btn-info"><i
-                                    class="fas fa-plus-circle"></i> Tambah Berita</a>
+                            <a href="categories/create" class="btn btn-icon icon-left btn-info"><i
+                                    class="fas fa-plus-circle"></i> Tambah Kategori</a>
                         </div>
                     </div>
                     <hr class="featurette-divider">
@@ -28,39 +28,26 @@
                             <table class="table-bordered table-md table">
                                 <tr>
                                     <th>#</th>
-                                    <th>Judul</th>
-                                    <th>Kategori</th>
-                                    <th>Gambar</th>
-                                    <th>isi</th>
-                                    <th>Dibuat Pada</th>
-                                    <th>Aksi</th>
+                                    <th>Nama</th>
                                 </tr>
-                                @foreach ($data as $d)
+                                @foreach ($category as $c)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $d->judul }}</td>
-                                        <td>{{ $d->category->nama }}</td>
-                                        <td><img src="{{ asset('storage/' . $d->gambar) }}" alt=""
-                                                style="width: 105px">
-                                        </td>
-                                        <td>{{ $d->excerpt }}</td>
-                                        <td>{{ $d->created_at }}</td>
+                                        <td>{{ $c->nama }}</td>
                                         <td>
-                                            <a href="beritas/{{ $d->slug }}/edit" class="btn btn-warning"> <i
+                                            <a href="categories/{{ $c->id }}/edit" class="btn btn-warning"> <i
                                                     class="fas fa-pen"></i></a>
-                                            <form action="/beritas/{{ $d->slug }}" method="post" class="d-inline">
+                                            <form action="/categories/{{ $c->id }}" method="post" class="d-inline">
                                                 @method('delete')
                                                 @csrf
-                                                <button class="btn btn-danger delete-btn" data-slug="{{ $d->slug }}">
+                                                <button class="btn btn-danger delete-btn" data-id="{{ $c->id }}">
                                                     <i class="fas fa-trash"></i></button>
                                             </form>
                                         </td>
                                     </tr>
                                 @endforeach
                             </table>
-                            <div class="d-flex justify-content-center">
-                                {{ $data->links() }}
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -87,7 +74,8 @@
             deleteButtons.forEach(btn => {
                 btn.addEventListener('click', (event) => {
                     event.preventDefault();
-                    const slug = btn.dataset.slug;
+                    const id = btn.dataset.id;
+                    // console.log(id);
 
                     swal({
                             title: 'Are you sure?',
@@ -100,7 +88,7 @@
                             if (willDelete) {
                                 // Proceed with the delete action
                                 const deleteForm = document.querySelector(
-                                    `form[action="/beritas/${slug}"]`);
+                                    `form[action="/categories/${id}"]`);
                                 deleteForm.submit();
                             } else {
                                 swal('Your data is safe!');

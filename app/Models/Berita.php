@@ -18,9 +18,10 @@ class Berita extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function getRouteKeyName()
-{
-    return 'slug';
+
+    // mengubah untuk default paramaeter yg di ambil id menjadi slug
+    public function getRouteKeyName(){
+        return 'slug';
 }
 
     public function sluggable(): array
