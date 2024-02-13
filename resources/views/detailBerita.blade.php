@@ -24,30 +24,7 @@
     <link rel="stylesheet" href="{{ asset('css/style2.css') }}">
     <link rel="stylesheet" href="{{ asset('css/components.css') }}">
 
-    <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-        }
 
-        /* @media (max-width: 768px) {
-            img {
-                width: 350px;
-                height: 200px;
-            }
-        }
-
-        @media (min-width: 992px) {
-            img {
-                width: 700px;
-                height: 400px;
-            }
-        } */
-    </style>
 
 
     <!-- Custom styles for this template -->
@@ -57,46 +34,45 @@
 <body>
 
 
-    <main role="main">
-        <header>
-            <nav class="navbar navbar-expand-lg navbar-dark   bg-dark">
-                <a class="navbar-brand" href="/">DESA BATU LANGKAH BESAR</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ml-auto">
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="/"><i class="fas fa-home"></i> Beranda</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
-                        </li>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark   bg-dark">
+            <a class="navbar-brand" href="/">DESA BATU LANGKAH BESAR</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
 
-                    </ul>
-                </div>
-            </nav>
-        </header>
-        <div class="container mt-4">
-            <div class="row justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/"><i class="fas fa-home"></i> Beranda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login"><i class="fas fa-sign-in-alt"></i> Login</a>
+                    </li>
 
-                <div class="col-md-8">
-                    <h1>{{ $data->judul }}</h1>
-                    <small>diposting {{ $data->created_at->diffForHumans() }}</small>
-                    <p>Tag : <a href="/kategori/{{ $data->category->nama }}">{{ $data->category->nama }}</a></p>
-                    <img src="{{ asset('storage/' . $data->gambar) }}" alt="" srcset=""
-                        class="pb-2 img-fluid">
-                    <p>{!! $data->isi !!}</p>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <div class="container mt-4">
+        <div class="row justify-content-center">
 
-                </div>
-
+            <div class="col-md-8">
+                <h1>{{ $data->judul }}</h1>
+                <small>diposting {{ $data->created_at->diffForHumans() }}</small>
+                <p>Tag : <a href="/kategori/{{ $data->category->nama }}">{{ $data->category->nama }}</a></p>
+                <img src="{{ asset('storage/' . $data->gambar) }}" alt="" srcset="" class="pb-2 img-fluid">
+                <p>{!! $data->isi !!}</p>
 
             </div>
-        </div>
 
-    </main>
+
+        </div>
+    </div>
+
+
     <footer class="text-muted">
         <div class="container">
             <p class="float-right">
@@ -108,7 +84,13 @@
 
 
 
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
+    </script>
 </body>
 
 </html>
