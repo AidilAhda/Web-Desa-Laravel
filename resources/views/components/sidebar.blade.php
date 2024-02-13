@@ -13,8 +13,8 @@
                     </span></a>
             </li>
             <li class="menu-header">Data</li>
-            <li class="{{ Request::is('data_penduduk') ? 'active' : '' }}">
-                <a class="nav-link" href="/data_penduduk"><i class="fas fa-people-roof">
+            <li class="{{ Request::is('data_penduduks*') ? 'active' : '' }}">
+                <a class="nav-link" href="/data_penduduks"><i class="fas fa-people-roof">
                     </i> <span>Data Penduduk</span>
                 </a>
             </li>
@@ -29,11 +29,18 @@
                     </i> <span>Kategori</span>
                 </a>
             </li>
-        </ul>
-
-        {{-- <li class="nav-item dropdown">
-                <a href="#"
-                    class="nav-link has-dropdown"><i class="fas fa-map-marker-alt"></i> <span>Google
+            <li class="{{ Request::is('jabatan*') ? 'active' : '' }}">
+                <a class="nav-link" href="/jabatans"><i class="fas fa-user-group">
+                    </i> <span>Jabatan</span>
+                </a>
+            </li>
+            <li class="{{ Request::is('perangkat_desas*') ? 'active' : '' }}">
+                <a class="nav-link" href="/perangkat_desas"><i class="fas fa-id-card-clip">
+                    </i> <span>Perangkat Desa</span>
+                </a>
+            </li>
+            {{-- <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-map-marker-alt"></i> <span>Google
                         Maps</span></a>
                 <ul class="dropdown-menu">
                     <li><a href="gmaps-advanced-route.html">Advanced Route</a></li>
@@ -46,14 +53,16 @@
                     <li><a href="gmaps-simple.html">Simple</a></li>
                 </ul>
             </li> --}}
+        </ul>
 
 
 
 
-        <div class="hide-sidebar-mini mt-4 mb-4 p-3">
+
+        {{-- <div class="hide-sidebar-mini mt-4 mb-4 p-3">
             <a href="https://getstisla.com/docs" class="btn btn-primary btn-lg btn-block btn-icon-split">
                 <i class="fas fa-rocket"></i> Documentation
             </a>
-        </div>
+        </div> --}}
     </aside>
 </div>

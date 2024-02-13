@@ -1,4 +1,4 @@
-{{-- @dd($kategori) --}}
+{{-- @dd($perangkat_desa) --}}
 <!doctype html>
 <html lang="en">
 
@@ -25,6 +25,9 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+    <!-- AOS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
 
     <!-- Template CSS -->
@@ -132,7 +135,7 @@
         <div class="container marketing">
 
             <!-- Three columns of text below the carousel -->
-            <div class="row">
+            <div class="row" data-aos="fade-up" data-aos-duration="2000">
                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                     <div class="card card-statistic-1">
                         <div class="card-icon bg-primary">
@@ -199,10 +202,9 @@
 
 
             <!-- START THE FEATURETTES -->
-
             <hr class="featurette-divider">
-
-            <div class="row featurette">
+            <h1 class="text-center">Fasilitas Desa</h1>
+            <div class="row featurette" data-aos="fade-left" data-aos-easing="linear" data-aos-duration="800">
                 <div class="col-md-7">
                     <h2 class="featurette-heading">HIDROPONIK DESA. <span class="text-muted">It’ll blow your
                             mind.</span></h2>
@@ -220,7 +222,7 @@
 
             <hr class="featurette-divider">
 
-            <div class="row featurette">
+            <div class="row featurette" data-aos="fade-right" data-aos-easing="linear" data-aos-duration="800">
                 <div class="col-md-7 order-md-2">
                     <h2 class="featurette-heading">Oh yeah, it’s that good. <span class="text-muted">See for
                             yourself.</span></h2>
@@ -240,8 +242,7 @@
             </div>
 
             <hr class="featurette-divider">
-
-            <div class="row featurette">
+            <div class="row featurette" data-aos="fade-left" data-aos-easing="linear" data-aos-duration="800">
                 <div class="col-md-7">
                     <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span>
                     </h2>
@@ -261,10 +262,7 @@
                 </div>
             </div>
 
-
-
             <hr class="featurette-divider">
-
             <h1 class="text-center">Berita</h1>
             <div class="row justify-content-center">
                 <div class="col-md-4">
@@ -279,10 +277,10 @@
             </div>
 
             <div id="cards-container">
-                <div class="row">
+                <div class="row ">
                     @foreach ($berita as $b)
                         {{-- @dd($b->gambar) --}}
-                        <div class="col-md-4">
+                        <div class="col-md-4 ">
                             <div class="card card-primary shadow" style="width: 18rem;">
                                 <img class="card-img-top" src="{{ url('storage/' . $b->gambar) }}"
                                     alt="gambar tidak ada">
@@ -304,37 +302,16 @@
             {{-- PERANGKAT DESA --}}
             <hr class="featurette-divider">
             <h1 class="text-center">Perangkat Desa</h1>
-            <div class="row">
-                <div class="col-lg-3">
+            <div class="row justify-content-center">
+                @foreach ($perangkat_desa as $pd)
+                    <div class="col-lg-3">
+                        <img src="{{ asset('storage/' . $pd->foto) }}" width="140" height="140"
+                            style="border-radius:50%" srcset="">
+                        <h2>{{ $pd->jabatan->jabatan }}</h2>
+                        <p>{{ $pd->nama }}</p>
 
-                    <img src="img/avatar/avatar-1.png" width="140" height="140" style="border-radius:50%"
-                        srcset="">
-
-                    <h2>Kepala Desa</h2>
-                    <p>Muhammad Nasir,S.T</p>
-
-                </div><!-- /.col-lg-4 -->
-                <div class="col-lg-3">
-                    <img src="img/avatar/avatar-2.png" width="140" height="140" style="border-radius:50%"
-                        srcset="">
-
-                    <h2>Sekretaris Desa</h2>
-                    <p>Muhammad Nazarudin,S.T</p>
-                </div><!-- /.col-lg-4 -->
-                <div class="col-lg-3">
-                    <img src="img/avatar/avatar-3.png" width="140" height="140" style="border-radius:50%"
-                        srcset="">
-
-                    <h2>Bendahara Desa</h2>
-                    <p>Muhammad Nazarudin,S.T</p>
-                </div><!-- /.col-lg-4 -->
-                <div class="col-lg-3">
-                    <img src="img/avatar/avatar-4.png" width="140" height="140" style="border-radius:50%"
-                        srcset="">
-
-                    <h2>Admin Desa</h2>
-                    <p>Muhammad Nazarudin,S.T</p>
-                </div><!-- /.col-lg-4 -->
+                    </div><!-- /.col-lg-4 -->
+                @endforeach
             </div>
         </div><!-- /.container -->
 
@@ -349,6 +326,10 @@
 
         </div>
     </footer>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
     <script>
         // Variable to store the current page
         var currentPage = 1;

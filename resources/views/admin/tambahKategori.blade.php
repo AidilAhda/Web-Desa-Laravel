@@ -58,26 +58,12 @@
             </div>
         </section>
     </div>
-    {{-- membuat slug otomatis --}}
-    <script>
-        const judul = document.getElementById('judul');
-        const slug = document.getElementById('slug');
 
-        judul.addEventListener('change', () => {
-            console.log(judul.value);
-            fetch('/berita/cekSlug?judul=' + judul.value)
-                .then(response => response.json())
-                .then(data => slug.value = data.slug)
-        });
-    </script>
 @endsection
 
 @push('scripts')
     <!-- JS Libraies -->
-    <script src="{{ asset('library/summernote/dist/summernote-bs4.js') }}"></script>
-    <script src="{{ asset('library/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
-    <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
-    <script src="{{ asset('library/upload-preview/upload-preview.js') }}"></script>
+
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/features-post-create.js') }}"></script>

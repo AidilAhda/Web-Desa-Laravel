@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\data_penduduk;
 use App\Models\Berita;
 use App\Models\Category;
-use App\Http\Requests\Storedata_pendudukRequest;
-use App\Http\Requests\Updatedata_pendudukRequest;
+
+use Illuminate\Http\Request;
+
+
 
 class DataPendudukController extends Controller
 {
@@ -15,18 +17,20 @@ class DataPendudukController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-       return view('admin.dashboard',[
+
+     function dashboard() {
+        return view('admin.dashboard',[
         'total_dusun' => data_penduduk::count(),
         'total_laki_laki' => data_penduduk::sum('laki_laki'),
         'total_perempuan' => data_penduduk::sum('perempuan'),
         'total_kk' => data_penduduk::sum('jumlah_kk'),
        ]);
-    }
-    public function blog()
+     }
+    public function index()
     {
-      
+       return view('admin.data_penduduk',[
+            'datas'=> data_penduduk::all()
+        ]);
     }
 
     /**
@@ -36,7 +40,7 @@ class DataPendudukController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.tambahDataPenduduk');
     }
 
     /**
@@ -45,9 +49,19 @@ class DataPendudukController extends Controller
      * @param  \App\Http\Requests\Storedata_pendudukRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Storedata_pendudukRequest $request)
+    public function store(Request $request)
     {
-        //
+        // dd($request);
+         $validData = $request->validate([
+            'nama_dusun'=>'required|max:255',
+            'laki_laki'=>'required',
+            'perempuan'=>'required',
+            'jumlah_kk'=>'required',
+        ]);
+         if (data_penduduk::create($validData)) {
+            return redirect("/data_penduduks")->with('berhasil','Berhasil Menambahkan Data Penduduk');            
+        }  
+        return redirect("/data_penduduks")->with('gagal','Gagal Menambahkan Data Penduduk');    
     }
 
     /**
@@ -58,9 +72,7 @@ class DataPendudukController extends Controller
      */
     public function show(data_penduduk $data_penduduk)
     {
-        return view('admin.data_penduduk',[
-            'datas'=> data_penduduk::all()
-        ]);
+        
     }
 
     /**
@@ -71,7 +83,10 @@ class DataPendudukController extends Controller
      */
     public function edit(data_penduduk $data_penduduk)
     {
-        //
+        // dd($data_penduduk);
+        return view('admin.updateDataPenduduk',[
+            'data_penduduk'=>$data_penduduk,
+        ]);
     }
 
     /**
@@ -81,9 +96,20 @@ class DataPendudukController extends Controller
      * @param  \App\Models\data_penduduk  $data_penduduk
      * @return \Illuminate\Http\Response
      */
-    public function update(Updatedata_pendudukRequest $request, data_penduduk $data_penduduk)
+    public function update(Request $request, data_penduduk $data_penduduk)
     {
-        //
+        $rules = [
+            'nama_dusun'=>'required|max:255',
+            'laki_laki'=>'required',
+            'perempuan'=>'required',
+            'jumlah_kk'=>'required'
+        ];
+        $validData = $request->validate($rules);
+        // return($validData);
+         if (data_penduduk::where('dp_id',$data_penduduk->dp_id)->update($validData)) {
+            return redirect("/data_penduduks")->with('berhasil','Berhasil Mengupdate Data Penduduk');            
+        }  
+        return redirect("/data_penduduks")->with('gagal','Gagal Mengupdate Data Penduduk');  
     }
 
     /**
@@ -94,6 +120,11 @@ class DataPendudukController extends Controller
      */
     public function destroy(data_penduduk $data_penduduk)
     {
-        //
+        // dd($data_penduduk);
+        
+        if (data_penduduk::destroy($data_penduduk->dp_id)) {
+            return redirect("/data_penduduks")->with('berhasil','Berhasil Menghapus Data Penduduk');            
+        }  
+        return redirect("/data_penduduks")->with('gagal','Gagal Menghapus Data Penduduk');
     }
 }

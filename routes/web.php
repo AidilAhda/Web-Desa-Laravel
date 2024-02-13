@@ -1,11 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+// import all controller
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DataPendudukController;
+use App\Http\Controllers\PerangkatDesaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,15 +28,12 @@ Route::get('/',  [BlogController::class,'index'])->name('blog');
 
 Route::middleware(['auth'])->group(function () {
     // Dashboard
-    Route::get('/dashboard',  [DataPendudukController::class,'index']);
+    Route::get('/dashboard',  [DataPendudukController::class,'dashboard']);
     
     //  fitur profile
     Route::get('/profile', function () {
         return view('admin.profile', ['type_menu' => 'profile']);
     });
-
-    //data penduduk
-    Route::get('/data_penduduk', [DataPendudukController::class,'show']);
     
     //berita
     Route::resource('/beritas', BeritaController::class);
@@ -41,6 +42,17 @@ Route::middleware(['auth'])->group(function () {
     
     //KATEGORI  
     Route::resource('/categories', CategoryController::class);
+    
+    // DATA PENDUDUK    
+    Route::resource('/data_penduduks', DataPendudukController::class);
+
+    // JABATAN    
+    Route::resource('/jabatans', JabatanController::class);
+
+    // Perangkat Desa    
+    Route::resource('/perangkat_desas', PerangkatDesaController::class);
+    Route::get('/update_status/{perangkatDesa}', [PerangkatDesaController::class,'updateStatus']);
+
     
 });
 

@@ -21,9 +21,9 @@ class DatabaseSeeder extends Seeder
 {
         // \App\Models\User::factory(10)->create();
         User::factory(1)->create();
-        Berita::factory(10)->create();
-        Category::factory(5)->create();
-        data_penduduk::factory(5)->create();
+        // Berita::factory(10)->create();
+        // Category::factory(5)->create();
+        // data_penduduk::factory(5)->create();
         
         
 

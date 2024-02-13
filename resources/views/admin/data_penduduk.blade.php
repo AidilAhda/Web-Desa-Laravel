@@ -6,6 +6,7 @@
     <!-- CSS Libraries -->
     {{-- <link rel="stylesheet" href="{{ asset('library/prismjs/themes/prism.min.css') }}"> --}}
 @endpush
+{{-- @dd($datas) --}}
 @section('main')
     <div class="main-content">
         <section class="section">
@@ -21,8 +22,8 @@
                 <div class="card shadow">
                     <div class="card-header">
                         <div class="buttons">
-                            <a href="#" class="btn btn-icon icon-left btn-info" data-toggle="modal"
-                                data-target="#exampleModal"><i class="fas fa-plus-circle"></i>
+                            <a href="data_penduduks/create" class="btn btn-icon icon-left btn-info"><i
+                                    class="fas fa-plus-circle"></i>
                                 Tambah Data
                             </a>
                         </div>
@@ -50,8 +51,15 @@
                                         <td>{{ $data->perempuan }}</td>
                                         <td>{{ $data->jumlah_kk }}</td>
                                         <td>{{ $data->created_at }}</td>
-                                        <td><a href="#" class="btn btn-warning"> <i class="fas fa-pen"></i></a>
-                                            <a href="#" class="btn btn-danger"> <i class="fas fa-trash"></i> </a>
+                                        <td><a href="/data_penduduks/{{ $data->dp_id }}/edit" class="btn btn-warning"> <i
+                                                    class="fas fa-pen"></i></a>
+                                            <form action="/data_penduduks/{{ $data->dp_id }}" method="post"
+                                                class="d-inline">
+                                                @method('delete')
+                                                @csrf
+                                                <button class="btn btn-danger delete-btn" data-id="{{ $data->dp_id }}">
+                                                    <i class="fas fa-trash"></i></button>
+                                            </form>
                                         </td>
 
 
@@ -66,61 +74,54 @@
             </div>
         </section>
     </div>
-    <div class="modal fade" tabindex="-1" role="dialog" id="exampleModal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Tambah Data Penduduk</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="card-body">
+    <script>
+        @if (session()->has('gagal'))
+            iziToast.error({
+                title: 'GAGAL',
+                message: `{{ session('gagal') }}`,
+                position: 'topRight'
+            });
+        @endif
+        @if (session()->has('berhasil'))
+            iziToast.success({
+                title: 'SUKSES',
+                message: `{{ session('berhasil') }}`,
+                position: 'topRight'
+            });
+        @endif
 
-                        <form action="">
-                            <div class="form-group ">
-                                <label for="inputDusun">Nama Dusun</label>
-                                <input type="text" class="form-control" id="inputDusun"name="inputDusun"
-                                    placeholder="Nama Dusun">
-                            </div>
+        const deleteButtons = document.querySelectorAll('.delete-btn');
 
+        deleteButtons.forEach(btn => {
+            btn.addEventListener('click', (event) => {
+                event.preventDefault();
+                const id = btn.dataset.id;
+                console.log(id);
 
-                            <div class="form-group">
-                                <label for="inputLaki">Laki Laki</label>
-                                <input type="number" class="form-control" id="inputLaki" name="inputLaki"
-                                    placeholder="Jumlah Laki laki">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputPerempuan">Perempuan</label>
-                                <input type="number" class="form-control" id="inputPerempuan"
-                                    name="inputPerempuan"placeholder="Jumlah Perempuan">
-                            </div>
-                            <div class="form-group">
-                                <label for="inputKK">KK</label>
-                                <input type="number" class="form-control" id="inputKK"name="inputKK"
-                                    placeholder="Jumlah KK">
-                            </div>
-
-                            <div class="modal-footer bg-whitesmoke br">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+                swal({
+                        title: 'Are you sure?',
+                        text: 'Once deleted, you will not be able to recover this data!',
+                        icon: 'warning',
+                        buttons: true,
+                        dangerMode: true,
+                    })
+                    .then((willDelete) => {
+                        if (willDelete) {
+                            // Proceed with the delete action
+                            const deleteForm = document.querySelector(
+                                `form[action="/data_penduduks/${id}"]`);
+                            deleteForm.submit();
+                        } else {
+                            swal('Your data is safe!');
+                        }
+                    });
+            });
+        });
+    </script>
 
 @endsection
 
 @push('scripts')
-    <!-- JS Libraies -->
-    {{-- <script src="{{ asset('library/prismjs/prism.js') }}"></script>
-
-            <!-- Page Specific JS File -->
-            <script src="{{ asset('js/page/bootstrap-modal.js') }}"></script> --}}
-    <!-- Page Specific JS File -->
+    <!-- JS Libraries -->
+    <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
 @endpush

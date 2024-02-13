@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Berita;
 use App\Models\Category;
+use Illuminate\Http\Request;
 use App\Models\data_penduduk;
+use App\Models\PerangkatDesa;
 
 class BlogController extends Controller
 {
@@ -22,6 +23,7 @@ class BlogController extends Controller
             'total_perempuan' => data_penduduk::sum('perempuan'),
             'total_kk' => data_penduduk::sum('jumlah_kk'),
             'berita' =>  $berita->paginate(3),
+            'perangkat_desa'=>PerangkatDesa::where('status',1)->get()
 
         ]);
 }

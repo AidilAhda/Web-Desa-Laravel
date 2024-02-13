@@ -16,10 +16,10 @@
         <section class="section ">
             <div class="section-header shadow">
 
-                <h1>Update Berita</h1>
+                <h1>Tambah Jabatan</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="/beritas">Berita</a></div>
-                    <div class="breadcrumb-item">Update Berita</div>
+                    <div class="breadcrumb-item active"><a href="/jabatans">Jabatan</a></div>
+                    <div class="breadcrumb-item">Tambah Jabatan</div>
                 </div>
             </div>
 
@@ -29,29 +29,26 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="/categories/{{ $category->id }}" method="post" enctype="multipart/form-data">
+                                <form action="/jabatans" method="post">
                                     @csrf
-                                    @method('put')
                                     <div class="form-group row mb-4">
-                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Jenis
-                                            Kategori</label>
+                                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">
+                                            Nama Jabatan</label>
                                         <div class="col-sm-12 col-md-7">
-                                            <input type="text" class="form-control @error('nama') is-invalid @enderror"
-                                                id="nama" name="nama" autofocus
-                                                value="{{ old('nama', $category->nama) }}">
-                                            @error('nama')
+                                            <input type="text"
+                                                class="form-control @error('jabatan') is-invalid @enderror" id="jabatan"
+                                                name="jabatan" autofocus value="{{ old('jabatan') }}">
+                                            @error('jabatan')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
                                                 </div>
                                             @enderror
                                         </div>
                                     </div>
-
-
                                     <div class="form-group row mb-4">
                                         <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                                         <div class="col-sm-12 col-md-7">
-                                            <button type="submit" class="btn btn-primary">Update Kategori</button>
+                                            <button type="submit" class="btn btn-primary">Tambah Jabatan</button>
                                         </div>
                                     </div>
                                 </form>
@@ -62,26 +59,12 @@
             </div>
         </section>
     </div>
-    {{-- membuat slug otomatis --}}
-    <script>
-        const judul = document.getElementById('judul');
-        const slug = document.getElementById('slug');
 
-        judul.addEventListener('change', () => {
-            console.log(judul.value);
-            fetch('/berita/cekSlug?judul=' + judul.value)
-                .then(response => response.json())
-                .then(data => slug.value = data.slug)
-        });
-    </script>
 @endsection
 
 @push('scripts')
     <!-- JS Libraies -->
-    <script src="{{ asset('library/summernote/dist/summernote-bs4.js') }}"></script>
-    <script src="{{ asset('library/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js') }}"></script>
-    <script src="{{ asset('library/selectric/public/jquery.selectric.min.js') }}"></script>
-    <script src="{{ asset('library/upload-preview/upload-preview.js') }}"></script>
+
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/features-post-create.js') }}"></script>
